@@ -2,16 +2,14 @@ const express=require('express');
 const { notes } = require('../db/db.json');
 const html = require('./htmlRoutes');
 const router = express.Router();
-const uuid = require('../helpers/uuid');
-const routes = require(router);
 
-
+//get all notes
 router.get('/api/notes', (req, res) => {
     res.json(notes);
   });
-  
+ // get individual note 
 router.get('/api/notes/:id', (req, res) => {
-    const result = findById(req.params.id, notes);
+    const result = (req.params.id, notes);
     if (result) {
       res.json(result);
     } else {
@@ -20,9 +18,8 @@ router.get('/api/notes/:id', (req, res) => {
   });
   
 router.post('/api/notes', (req, res) => {
-  // set id based on what next index of array will be
+  //route to post with new id 
     req.body.id = notes.length.toString();
   });
-
 
   module.exports = router;
