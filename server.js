@@ -1,27 +1,21 @@
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3001;
-const { notes } = require('./db/db.json');
 
-app.get('/api/notes', (req, res) => {
-  res.json(notes);
-});
+const api = require('./routes/apiRoutes');
+const htmlRoutes = require('./routes/htmlRoutes');
 
-app.get('/api/notes/:id', (req, res) => {
-  const result = findById(req.params.id, notes);
-  if (result) {
-    res.json(result);
-  } else {
-    res.send(404);
-  }
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.post('/api/notes', (req, res) => {
-// set id based on what next index of array will be
-  req.body.id = notes.length.toString();
-});
+app.use(express.static('public'));
+app.use('/api', api);
+app.use('/', htmlRoutes);
 
-//module.exports = router;
+//module.exports = r
+// app.get('/', (req, res) => {
+//   res.send()
+// });
 
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
