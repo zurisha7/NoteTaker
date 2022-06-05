@@ -5,13 +5,12 @@ const { findById, createNewNote } = require('../lib/notesFunc');
 const htmlRoutes = require('./htmlRoutes')
 
 
-
 //get all notes
-router.get('/notes', (req, res) => {
+router.get('api/notes', (req, res) => {
     res.json(notes);
   });
  // get individual note 
-router.get('/notes/:id', (req, res) => {
+router.get('api/notes/:id', (req, res) => {
     const result = findById(req.params.id, notes);
     if (result) {
       res.json(result);
@@ -20,7 +19,7 @@ router.get('/notes/:id', (req, res) => {
     }
   });
   
-router.post('/notes', (req, res) => {
+router.post('api/notes', (req, res) => {
   //route to post with new id 
   const { title, text } = req.body;
 
