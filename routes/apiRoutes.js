@@ -1,18 +1,17 @@
 const express = require('express');
 const { notes } = require('../db/db.json');
-const html = require('./htmlRoutes');
 const router = require('express').Router();
+const { findById, createNewNote } = require('../lib/notesFunc');
+const htmlRoutes = require('./htmlRoutes')
 
-function findById(id, notesArray) {
-  const result = notesArray.filter(note => note.id === id)[0];
-  return result;
-}
+
+
 //get all notes
-router.get('/api/notes', (req, res) => {
+router.get('/notes', (req, res) => {
     res.json(notes);
   });
  // get individual note 
-router.get('/api/notes/:id', (req, res) => {
+router.get('/notes/:id', (req, res) => {
     const result = findById(req.params.id, notes);
     if (result) {
       res.json(result);
@@ -21,9 +20,28 @@ router.get('/api/notes/:id', (req, res) => {
     }
   });
   
-router.post('/api/notes', (req, res) => {
+router.post('/notes', (req, res) => {
   //route to post with new id 
-    req.body.id = notes.length.toString();
+  const { title, text } = req.body;
+
+  const noteId = uuid();
+  const parsedId = uuidParse(noteId);
+  const stringfyId = uuidStringify(parsedId);
+  console.log(`parsedId : ${parsedId}\n`);
+  console.log(`StringifyId : ${stringfyId}\n`);
+   
+// create note id
+  repo.create({
+    noteId,
+    title,
+    text
+    
+  })
+  res.send('Information submitted!')
+
+    const result = createNewNote(req.body.id = notes.length.toString());
+    console.log(result);
   });
+
 
   module.exports = router;
