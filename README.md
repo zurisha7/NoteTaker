@@ -10,6 +10,7 @@ This is written with HTML, CSS, JavaScript, and NodeJS.
 https://intense-brook-26087.herokuapp.com/notes
 
 ## Github
+https://github.com/zurisha7/NoteTaker.git
 
 ## Contributors
  starter code from UT Austin Bootcamp, Andrea West
