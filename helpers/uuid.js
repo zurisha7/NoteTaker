@@ -1,5 +1,10 @@
+const uuid = require("uuid");
+
+
 // a function that generates a string of random numbers and letters to assign ID
-module.exports = () =>
+uuidv4 = () =>
   Math.floor((1 + Math.random()) * 0x10000)
     .toString(16)
     .substring(1);
+ 
+    module.exports = uuidv4;

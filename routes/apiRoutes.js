@@ -1,46 +1,80 @@
 const express = require('express');
-const { notes } = require('../db/db.json');
+const fs = require('fs');
+const path = require('path');
+const { notes } = require('../db/notes.json');
 const router = require('express').Router();
 const { findById, createNewNote } = require('../lib/notesFunc');
-const htmlRoutes = require('./htmlRoutes')
+const uuid = require('../helpers/uuid');
 
 
 //get all notes
-router.get('api/notes', (req, res) => {
+router.get('/notes', (req, res) => {
     res.json(notes);
+  
   });
- // get individual note 
-router.get('api/notes/:id', (req, res) => {
+ //get individual note 
+router.get('/notes/:id', (req, res) => {
     const result = findById(req.params.id, notes);
     if (result) {
       res.json(result);
     } else {
-      res.send(404);
+      res.sendStatus(404);
     }
   });
   
-router.post('api/notes', (req, res) => {
-  //route to post with new id 
+
+   // POST to notes
+router.post('/notes', (req, res) => {
+  
+  //  note to add to json body
   const { title, text } = req.body;
 
-  const noteId = uuid();
-  const parsedId = uuidParse(noteId);
-  const stringfyId = uuidStringify(parsedId);
-  console.log(`parsedId : ${parsedId}\n`);
-  console.log(`StringifyId : ${stringfyId}\n`);
    
-// create note id
-  repo.create({
-    noteId,
-    title,
-    text
-    
-  })
-  res.send('Information submitted!')
-
-    const result = createNewNote(req.body.id = notes.length.toString());
-    console.log(result);
+  if (title && text ) {
+    // make a new variable with new id
+    const newNote = {
+       title,
+      text,
+      id: uuid(),
+    };
+    req.body.id = notes.length.toString();
+  
+    const note = createNewNote(newNote, notes);
+    res.json(note);
+        }
   });
+
+
+   //pull up info from JSON
+// fs.readFile("./db/notes.json", 'utf8', (err, data) => {
+//     if(err) {
+//       console.error(err);
+//     } else {
+      
+//     const parsedNotes = JSON.parse(data);
+    
+//     //add to array
+//     const newArray = parsedNotes.notes.push(newNote);
+
+//     // write new array to file
+//       fs.writeFile("./db/notes.json", JSON.stringify(newArray), (err) => {
+//         if (err) throw err;
+//         console.log("note added")
+//       })
+//     }
+//     }
+//    )
+   
+//   const response = {
+//     status: 'success',
+//     body: newNote,
+//   }
+  
+//   res.json(response);
+//   } 
+// });
+
+// router.delete()
 
 
   module.exports = router;
