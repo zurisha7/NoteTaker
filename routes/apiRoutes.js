@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const { notes } = require('../db/notes.json');
 const router = require('express').Router();
-const { findById, createNewNote, deleteNote } = require('../lib/notesFunc');
+const { findById, createNewNote } = require('../lib/notesFunc');
 const uuid = require('../helpers/uuid');
 
 

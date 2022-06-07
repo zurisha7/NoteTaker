@@ -14,27 +14,4 @@ router.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-// //route to root html to create note with an id
-// router.post('/', (req, res) => {
-//    // Fetching user inputs
-//   const { title, text } = req.body;
-
-//   const noteId = uuid();
-//   const parsedId = uuidParse(noteId);
-//   const stringfyId = uuidStringify(parsedId);
-//   console.log(`parsedId : ${parsedId}\n`);
-//   console.log(`StringifyId : ${stringfyId}\n`);
-   
-// // create note id
-//   repo.create({
-//     noteId,
-//     title,
-//     text
-    
-//   })
-//   res.send('Information submitted!')
-// })
-
-
-
 module.exports = router;
