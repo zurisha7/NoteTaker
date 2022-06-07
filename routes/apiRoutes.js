@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const { notes } = require('../db/notes.json');
 const router = require('express').Router();
-const { findById, createNewNote } = require('../lib/notesFunc');
+const { findById, createNewNote, deleteNote } = require('../lib/notesFunc');
 const uuid = require('../helpers/uuid');
 
 
@@ -44,37 +44,15 @@ router.post('/notes', (req, res) => {
         }
   });
 
-
-   //pull up info from JSON
-// fs.readFile("./db/notes.json", 'utf8', (err, data) => {
-//     if(err) {
-//       console.error(err);
-//     } else {
-      
-//     const parsedNotes = JSON.parse(data);
-    
-//     //add to array
-//     const newArray = parsedNotes.notes.push(newNote);
-
-//     // write new array to file
-//       fs.writeFile("./db/notes.json", JSON.stringify(newArray), (err) => {
-//         if (err) throw err;
-//         console.log("note added")
-//       })
-//     }
-//     }
-//    )
-   
-//   const response = {
-//     status: 'success',
-//     body: newNote,
-//   }
+ router.delete('/notes/:id', (req, res) => {
+    notes.splice("", 1)
+    fs.writeFileSync(
+      path.join(__dirname, '../db/notes.json'),
+      JSON.stringify({ notes}, null, 2)
+      );
   
-//   res.json(response);
-//   } 
-// });
-
-// router.delete()
+ res.send('deleted');
+ });
 
 
   module.exports = router;
